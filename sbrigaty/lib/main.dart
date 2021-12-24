@@ -67,11 +67,15 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(child: Text("Ciao $_counter")),
+            Divider(
+              thickness: 1,
+            ),
             Padding(
               child: Text("Ciao ${++_counter}"),
               padding: EdgeInsets.all(100),
