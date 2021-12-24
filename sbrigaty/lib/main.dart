@@ -72,19 +72,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child: Text("Ciao $_counter")),
-            Divider(
-              thickness: 1,
-            ),
+            Text("Ciao $_counter"),
+            Divider(),
             Padding(
               child: Text("Ciao ${++_counter}"),
-              padding: EdgeInsets.all(100),
+              padding: EdgeInsets.all(50),
             ),
+            Divider(),
             ConstrainedBox(
               constraints: BoxConstraints(minWidth: 200),
               child: FittedBox(
                 fit: BoxFit.fill,
                 child: Text("Ciao ${++_counter}"),
+              ),
+            ),
+            Divider(),
+            Card(
+              elevation: 10.0,
+              child: Column(
+                children: [
+                  Text("Text 1"),
+                  Text("Text 2"),
+                ],
               ),
             ),
           ],
