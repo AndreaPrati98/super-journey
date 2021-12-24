@@ -80,7 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("Ciao ${++_counter}"),
               padding: EdgeInsets.all(100),
             ),
-            Transform.scale(scale: 2, child: Text("Ciao ${++_counter}")),
+            ConstrainedBox(
+              constraints: BoxConstraints(minWidth: 200),
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: Text("Ciao ${++_counter}"),
+              ),
+            ),
           ],
         ),
       ),
