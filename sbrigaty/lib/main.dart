@@ -99,6 +99,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      drawer: Drawer(
+        child: Column(children: [
+          Text("Item 1"),
+          Divider(),
+          Text("Item 2"),
+          Divider(),
+          Text("Item 3")
+        ]),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
