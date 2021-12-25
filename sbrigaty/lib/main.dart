@@ -53,6 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _counToZero() {
+    setState(() {
+      _counter = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -96,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+            IconButton(onPressed: _counToZero, icon: Icon(Icons.access_alarms)),
           ],
         ),
       ),
@@ -108,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Text("Item 3")
         ]),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
