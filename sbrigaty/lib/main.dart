@@ -31,26 +31,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Text> _itemList = [];
+  final List<String> _itemList = [];
   TextEditingController textInsertItemController = TextEditingController();
 
   void addItem() {
     setState(() {
       if (textInsertItemController.text.isEmpty) return;
-      //if (_itemList.contains(textInsertItemController.text)) return;
-      _itemList.add(Text(textInsertItemController.text));
-      print("${_itemList.last}");
+      if (_itemList.contains(textInsertItemController.text)) return;
+      _itemList.add(textInsertItemController.text);
+      //print("${_itemList.last}");
+    });
+  }
+
+  void rmvItem(int itemindex) {
+    setState(() {
+      _itemList.removeAt(itemindex);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -81,13 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           const Text("Here are the list of the items"),
           Expanded(
-            child: ListView.builder(
-                itemCount: _itemList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: _itemList[index],
-                  );
-                }),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.builder(
+                  itemCount: _itemList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      children: [
+                        Text(_itemList[index]),
+                        ElevatedButton(
+                            onPressed: () {
+                              rmvItem(index);
+                            },
+                            child: const Text("Remove")),
+                      ],
+                    );
+                  }),
+            ),
           ),
         ],
       ),
