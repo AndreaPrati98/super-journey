@@ -86,15 +86,20 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ListView.builder(
                   itemCount: _itemList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      children: [
-                        Text(_itemList[index]),
-                        ElevatedButton(
-                            onPressed: () {
-                              rmvItem(index);
-                            },
-                            child: const Text("Remove")),
-                      ],
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black38),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(_itemList[index]),
+                          ElevatedButton(
+                              onPressed: () => rmvItem(index),
+                              child: const Text("Remove")),
+                        ],
+                      ),
                     );
                   }),
             ),
