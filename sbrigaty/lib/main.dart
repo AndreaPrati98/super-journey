@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         shadowColor: Colors.amber,
       ),
-      title: 'Flutter Playground',
+      title: 'Shopping List',
       home: const MyHomePage(title: 'Shopping List'),
     );
   }
@@ -24,15 +24,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -40,22 +31,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final List<Text> _itemList = [];
+  TextEditingController textInsertItemController = TextEditingController();
 
-  void _incrementCounter() {
+  void addItem() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  void _counToZero() {
-    setState(() {
-      _counter = 0;
+      if (textInsertItemController.text.isEmpty) return;
+      //if (_itemList.contains(textInsertItemController.text)) return;
+      _itemList.add(Text(textInsertItemController.text));
+      print("${_itemList.last}");
     });
   }
 
@@ -73,51 +57,49 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Ciao $_counter"),
-            Divider(),
-            Padding(
-              child: Text("Ciao ${++_counter}"),
-              padding: EdgeInsets.all(50),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: TextField(
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  label: Text("Insert the items here"),
+                  icon: Icon(Icons.insert_comment),
+                  //iconColor: Colors.black,
+                  hintText: "Eggs",
+                  hintStyle: TextStyle(
+                    color: Colors.blue,
+                  )),
+              controller: textInsertItemController,
             ),
-            Divider(),
-            ConstrainedBox(
-              constraints: BoxConstraints(minWidth: 200),
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Text("Ciao ${++_counter}"),
-              ),
-            ),
-            Divider(),
-            Card(
-              elevation: 10.0,
-              child: Column(
-                children: [
-                  Text("Text 1"),
-                  Text("Text 2"),
-                ],
-              ),
-            ),
-            IconButton(onPressed: _counToZero, icon: Icon(Icons.access_alarms)),
-          ],
-        ),
+          ),
+          const Divider(
+            thickness: 2,
+          ),
+          const Text("Here are the list of the items"),
+          Expanded(
+            child: ListView.builder(
+                itemCount: _itemList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    child: _itemList[index],
+                  );
+                }),
+          ),
+        ],
       ),
+
       drawer: Drawer(
-        child: Column(children: [
-          Text("Item 1"),
-          Divider(),
-          Text("Item 2"),
-          Divider(),
-          Text("Item 3")
-        ]),
+        child: Column(children: const []),
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          addItem();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
